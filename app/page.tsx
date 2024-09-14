@@ -1,12 +1,11 @@
-import EmailPage from "@/pages/EmailPage"
+import EmailContainer from '../container/EmailContainer';
 
-
-function page() {
+const EmailPage = () => {
   return (
-    <>
-    <EmailPage/>
-    </>
-  )
-}
+    <main className="flex items-center justify-center min-h-screen p-6 bg-white">
+      <EmailContainer />
+    </main>
+  );
+};
 
-export default page
+export default EmailPage;
