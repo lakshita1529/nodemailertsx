@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import nodemailerExpressHandlebars from 'nodemailer-express-handlebars';
 import path from 'path';
-import emailAddresses from '../../../data/emails.json'; 
 
 const emailUser = process.env.EMAIL_USER!;
 const emailPass = process.env.EMAIL_PASS!;
@@ -31,7 +30,11 @@ transporter.use('compile', nodemailerExpressHandlebars(handlebarOptions));
 
 export async function POST(req: NextRequest) {
   try {
-    const { subject, message, user } = await req.json();
+    const { emailAddresses, subject } = await req.json();
+
+    if (!Array.isArray(emailAddresses)) {
+      throw new Error('Invalid email addresses format');
+    }
 
     const emailPromises = emailAddresses.map((email: string) => {
       const mailOptions = {
@@ -40,8 +43,7 @@ export async function POST(req: NextRequest) {
         subject: subject,
         template: 'welcome',
         context: {
-          user,
-          message,
+          user: email,
         },
       };
 

@@ -1,29 +1,29 @@
+import React from 'react';
 import Button from '../../components/base/Button';
 import InputField from '../../components/base/InputField';
 import '../../app/globals.css'; 
 
 interface EmailViewProps {
-  email: string;
+  emails: string;
   subject: string;
   status: string;
-  setEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setEmails: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setSubject: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const EmailView: React.FC<EmailViewProps> = ({ email, subject, status, setEmail, setSubject, handleSubmit }) => {
+const EmailView: React.FC<EmailViewProps> = ({ emails, subject, status, setEmails, setSubject, handleSubmit }) => {
   return (
-  
-    <div className="flex items-center justify-center bg-gray-100 w-max">
-        <div className="p-8 bg-white shadow-lg rounded-lg max-w-md w-full">
-        <h1 className="heading-primary">Send Email</h1>
+    <div className="flex items-center justify-center bg-gray-100 min-h-screen">
+      <div className="p-8 bg-white shadow-lg rounded-lg max-w-md w-full">
+        <h1 className="text-2xl font-bold mb-6">Send Email</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
           <InputField
-            id="email"
-            type="email"
-            value={email}
-            onChange={setEmail}
-            label="Recipient Email:"
+            id="emails"
+            type="text"
+            value={emails}
+            onChange={setEmails}
+            label="Recipient Emails (comma-separated):"
             className="w-full"
           />
           <InputField
@@ -44,7 +44,6 @@ const EmailView: React.FC<EmailViewProps> = ({ email, subject, status, setEmail,
         {status && <p className="mt-6 text-center text-md text-gray-600">{status}</p>}
       </div>
     </div>
-    
   );
 };
 

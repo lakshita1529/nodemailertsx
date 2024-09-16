@@ -3,33 +3,35 @@ import React, { useState } from 'react';
 import EmailView from '../../views/EmailView';
 
 const EmailContainer = () => {
-  const [email, setEmail] = useState('');
+  const [emails, setEmails] = useState('');
   const [subject, setSubject] = useState('');
   const [status, setStatus] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const emailArray = emails.split(',').map(email => email.trim()); 
+
     const response = await fetch('/api/sendemail', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, subject }),
+      body: JSON.stringify({ emailAddresses: emailArray, subject }),
     });
 
     const data = await response.json();
     if (response.ok) {
-      setStatus('Email sent successfully!');
+      setStatus('Emails sent successfully!');
     } else {
-      setStatus(`Error sending email: ${data.message}`);
+      setStatus(`Error sending emails: ${data.message}`);
     }
   };
 
   return (
     <EmailView
-      email={email}
+      emails={emails}
       subject={subject}
       status={status}
-      setEmail={(e) => setEmail(e.target.value)}
+      setEmails={(e) => setEmails(e.target.value)}
       setSubject={(e) => setSubject(e.target.value)}
       handleSubmit={handleSubmit}
     />
