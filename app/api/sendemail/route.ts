@@ -1,22 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import nodemailerExpressHandlebars from 'nodemailer-express-handlebars';
+import hbs from 'nodemailer-express-handlebars';
 import path from 'path';
 
 const emailUser = process.env.EMAIL_USER!;
 const emailPass = process.env.EMAIL_PASS!;
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.zoho.in',
-  port: 465,
-  secure: true,
-  auth: {
-    user: emailUser,
-    pass: emailPass,
-  },
-});
-
-const handlebarOptions = {
+const handlebars = hbs({
   viewEngine: {
     extName: '.hbs',
     partialsDir: path.resolve(process.cwd(), 'app/emails'),
@@ -24,10 +14,20 @@ const handlebarOptions = {
   },
   viewPath: path.resolve(process.cwd(), 'app/emails'),
   extName: '.hbs',
+});
+
+const smtpTransport = {
+  host: 'smtp.zoho.in',
+  port: 465,
+  secure: true,
+  auth: {
+    user: emailUser,
+    pass: emailPass,
+  },
 };
 
-transporter.use('compile', nodemailerExpressHandlebars(handlebarOptions));
-
+const transporter = nodemailer.createTransport(smtpTransport);
+transporter.use('compile', handlebars);
 export async function POST(req: NextRequest) {
   try {
     const { emailAddresses, subject } = await req.json();

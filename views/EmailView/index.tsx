@@ -7,8 +7,8 @@ interface EmailViewProps {
   emails: string;
   subject: string;
   status: string;
-  setEmails: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setSubject: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setEmails: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  setSubject: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
