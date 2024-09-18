@@ -1,41 +1,53 @@
 "use client"
 import React, { useState } from 'react';
-import EmailView from '../../views/EmailView';
+import EmailView from '../../views/EmailView'; // Import the View component
 
-const EmailContainer = () => {
-  const [emails, setEmails] = useState('');
+const EmailFormContainer: React.FC = () => {
+  const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const emailArray = emails.split(',').map(email => email.trim()); 
+    const emailData = {
+      emailAddresses: email.split(',').map(email => email.trim()),
+      subject: subject,
+      message: message,
+    };
 
-    const response = await fetch('/api/sendemail', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ emailAddresses: emailArray, subject }),
-    });
+    try {
+      const response = await fetch('/api/sendemail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(emailData),
+      });
 
-    const data = await response.json();
-    if (response.ok) {
-      setStatus('Emails sent successfully!');
-    } else {
-      setStatus(`Error sending emails: ${data.message}`);
+      const data = await response.json();
+      if (response.ok) {
+        setStatus('Emails sent successfully!');
+      } else {
+        setStatus(`Error sending emails: ${data.message}`);
+      }
+    } catch (error) {
+      setStatus('Error sending emails');
+      console.error('Error sending emails:', error);
     }
   };
 
   return (
     <EmailView
-      emails={emails}
+      email={email}
       subject={subject}
+      message={message}
       status={status}
-      setEmails={(e) => setEmails(e.target.value)}
+      setEmail={(e) => setEmail(e.target.value)}
       setSubject={(e) => setSubject(e.target.value)}
+      setMessage={(e) => setMessage(e.target.value)}
       handleSubmit={handleSubmit}
     />
   );
 };
 
-export default EmailContainer;
+export default EmailFormContainer;

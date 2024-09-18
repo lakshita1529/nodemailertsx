@@ -4,25 +4,27 @@ import InputField from '../../components/base/InputField';
 import '../../app/globals.css'; 
 
 interface EmailViewProps {
-  emails: string;
+  email: string;
   subject: string;
+  message: string;
   status: string;
-  setEmails: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  setEmail: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   setSubject: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  setMessage: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const EmailView: React.FC<EmailViewProps> = ({ emails, subject, status, setEmails, setSubject, handleSubmit }) => {
+const EmailView: React.FC<EmailViewProps> = ({ email, subject, message, status, setEmail, setSubject, setMessage, handleSubmit }) => {
   return (
     <div className="flex items-center justify-center bg-gray-100 min-h-screen">
       <div className="p-8 bg-white shadow-lg rounded-lg max-w-md w-full">
         <h1 className="text-2xl font-bold mb-6">Send Email</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
           <InputField
-            id="emails"
+            id="email"
             type="text"
-            value={emails}
-            onChange={setEmails}
+            value={email}
+            onChange={setEmail}
             label="Recipient Emails (comma-separated):"
             className="w-full"
           />
@@ -32,6 +34,14 @@ const EmailView: React.FC<EmailViewProps> = ({ emails, subject, status, setEmail
             value={subject}
             onChange={setSubject}
             label="Subject:"
+            className="w-full"
+          />
+          <InputField
+            id="message"
+            type="textarea"
+            value={message}
+            onChange={setMessage}
+            label="Message:"
             className="w-full"
           />
           <Button

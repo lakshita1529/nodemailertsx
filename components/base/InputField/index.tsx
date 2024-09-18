@@ -1,8 +1,9 @@
+// InputField.jsx
 import React from 'react';
 
 interface InputFieldProps {
   id: string;
-  type: string;
+  type: 'text' | 'textarea';
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   label: string;
@@ -20,7 +21,8 @@ const InputField: React.FC<InputFieldProps> = ({ id, type, value, onChange, labe
           id={id}
           value={value}
           onChange={onChange}
-          className={`mt-4 p-3 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${className}`}
+          className={`mt-2 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${className}`}
+          rows={5}
         />
       </div>
     );
@@ -36,7 +38,7 @@ const InputField: React.FC<InputFieldProps> = ({ id, type, value, onChange, labe
         type={type}
         value={value}
         onChange={onChange}
-        className={`mt-4 p-3 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${className}`}
+        className={`mt-2 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${className}`}
       />
     </div>
   );
