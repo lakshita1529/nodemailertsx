@@ -1,4 +1,3 @@
-// InputField.jsx
 import React from 'react';
 
 interface InputFieldProps {
@@ -14,14 +13,14 @@ const InputField: React.FC<InputFieldProps> = ({ id, type, value, onChange, labe
   if (type === 'textarea') {
     return (
       <div>
-        <label htmlFor={id} className="block text-lg text-gray-700">
+        <label htmlFor={id} className="block text-lg font-medium">
           {label}
         </label>
         <textarea
           id={id}
           value={value}
           onChange={onChange}
-          className={`mt-2 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${className}`}
+          className={`mt-2 p-2 w-full border border-gray-300 rounded-md ${className}`}
           rows={5}
         />
       </div>
@@ -30,7 +29,7 @@ const InputField: React.FC<InputFieldProps> = ({ id, type, value, onChange, labe
 
   return (
     <div>
-      <label htmlFor={id} className="block text-lg text-gray-700">
+      <label htmlFor={id} className="block text-lg font-medium">
         {label}
       </label>
       <input
@@ -38,7 +37,7 @@ const InputField: React.FC<InputFieldProps> = ({ id, type, value, onChange, labe
         type={type}
         value={value}
         onChange={onChange}
-        className={`mt-2 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${className}`}
+        className={`mt-2 p-2 w-full border border-gray-300 rounded-md ${className}`}
       />
     </div>
   );
