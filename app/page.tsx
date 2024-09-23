@@ -1,13 +1,12 @@
-import EmailContainer from '../container/EmailContainer';
+import EmailContainer from "../container/EmailContainer";
+import './globals.css'
 
-const EmailPage = () => {
+const Page: React.FC = () => {
   return (
-    <main className="flex items-center justify-center min-h-screen p-6 bg-white">
+    <div>
       <EmailContainer />
-    </main>
+    </div>
   );
 };
 
-export default EmailPage;
-
-
+export default Page;

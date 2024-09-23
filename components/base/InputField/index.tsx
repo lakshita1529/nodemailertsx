@@ -1,8 +1,7 @@
-import React from 'react';
 
 interface InputFieldProps {
   id: string;
-  type: 'text' | 'textarea';
+  type: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   label: string;
@@ -10,35 +9,28 @@ interface InputFieldProps {
 }
 
 const InputField: React.FC<InputFieldProps> = ({ id, type, value, onChange, label, className }) => {
-  if (type === 'textarea') {
-    return (
-      <div>
-        <label htmlFor={id} className="block text-lg font-medium">
-          {label}
-        </label>
+  return (
+    <div className={`flex flex-col ${className}`}>
+      <label htmlFor={id} className="mb-2 font-semibold">
+        {label}
+      </label>
+      {type === "textarea" ? (
         <textarea
           id={id}
           value={value}
           onChange={onChange}
-          className={`mt-2 p-2 w-full border border-gray-300 rounded-md ${className}`}
+          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           rows={5}
         />
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <label htmlFor={id} className="block text-lg font-medium">
-        {label}
-      </label>
-      <input
-        id={id}
-        type={type}
-        value={value}
-        onChange={onChange}
-        className={`mt-2 p-2 w-full border border-gray-300 rounded-md ${className}`}
-      />
+      ) : (
+        <input
+          id={id}
+          type={type}
+          value={value}
+          onChange={onChange}
+          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+      )}
     </div>
   );
 };
