@@ -17,7 +17,7 @@ const handlebars = hbs({
 });
 
 const smtpTransport = {
-  host: 'smtp.zoho.in',
+  host: 'smtp.gmail.com',
   port: 465,
   secure: true,
   auth: {
