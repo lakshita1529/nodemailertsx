@@ -5,7 +5,7 @@ const emailUser = process.env.EMAIL_USER!;
 const emailPass = process.env.EMAIL_PASS!;
 
 const smtpTransport = {
-  host: 'smtp.zoho.in',
+  host: 'smtp.gmail.com',
   port: 465,
   secure: true,
   auth: {
